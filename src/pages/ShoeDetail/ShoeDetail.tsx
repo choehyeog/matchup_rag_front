@@ -51,12 +51,15 @@ export default function ShoeDetail() {
     const productCode = shoeId ? decodeURIComponent(shoeId) : ''
     if (!productCode) { navigate('/report/shoes', { replace: true }); return }
 
+    /* 세션의 overall_score를 초기값으로 — Fit Compatibility와 동일한 값 */
     const shoe = session.matchedShoes?.find(s => s.product_code === productCode)
     if (shoe) {
       setProduct({ name: shoe.model_name, brand: shoe.brand, image: shoe.image_url ?? null })
+      setFitScore(shoe.overall_score)  // 목록과 동일한 NAS 점수로 시작
     }
 
-    /* 신발 스펙 + 프론트엔드 채점 */
+    /* 신발 스펙 → 8개 막대그래프 + 안전 경고 (프론트 엔진)
+     * overall_score는 건드리지 않음 — 목록 점수와 일치 유지 */
     fittingApi.shoeProducts()
       .then(({ products }) => {
         const found = products.find(p => p.product_code === productCode)
@@ -68,10 +71,9 @@ export default function ShoeDetail() {
         const specs = (found as unknown as { specs: Record<string, unknown> }).specs ?? {}
 
         const dims = scoreShoeForUser(specs, caseAnswers, session.cfdData)
-        const overall = calcOverallScore(dims)
         const safetyWarnings = checkSafety(specs, caseAnswers, session.cfdData, dims)
 
-        setFitScore(overall)
+        // overall_score는 세션값(NAS) 유지, 막대그래프만 프론트 계산값 사용
         setWarnings(safetyWarnings)
         setMetrics(dims.map(d => ({
           label:          d.label,
@@ -84,7 +86,7 @@ export default function ShoeDetail() {
       })
       .catch(err => console.warn('스펙 조회 실패:', err))
 
-    /* NAS shoe-match-detail — 사이즈 핏 데이터 포함 여부 확인 */
+    /* NAS shoe-match-detail — 사이즈 핏 데이터(PHP 연결 후 사용) */
     fittingApi.shoeMatchDetail({
       cfd_uuid:   session.cfdData.cfd_uuid,
       user_id:    session.cfdData.user_id || null,
@@ -92,16 +94,13 @@ export default function ShoeDetail() {
       product_id: productCode,
     })
       .then(res => {
-        /* recommend_sizes가 있으면 발 시각화에 사용 */
         if (res.detail.recommend_sizes) {
           const { sizes: s, initialSizeIndex: idx } = parseRecommendSizes(res.detail.recommend_sizes)
           setSizes(s)
           setInitialSizeIndex(idx)
         }
-        /* 백엔드 overall_score도 있으면 덮어쓰기 (프론트 계산보다 우선) */
-        if (res.detail.overall_score) setFitScore(res.detail.overall_score)
       })
-      .catch(() => { /* recommend_sizes 없는 현재 버전에서는 무시 */ })
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [navigate, shoeId])
 
