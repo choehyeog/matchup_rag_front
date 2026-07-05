@@ -315,24 +315,17 @@ export function checkSafety(
   const stability   = String(specs.stability_structure ?? 'neutral')
   const stackObj    = specs.stack_height_stiffness as Record<string, unknown> ?? {}
   const stackMm     = (stackObj.stack_mm as number) ?? 28
-  const bendObj     = specs.bending_stiffness as Record<string, unknown> ?? {}
-  const bendType    = String(bendObj.type ?? 'unplated_low')
   const upperObj    = specs.upper_material as Record<string, unknown> ?? {}
   const stretchPct  = (upperObj.stretch_pct as number) ?? 8
   const outsoleObj  = specs.outsole_traction as Record<string, unknown> ?? {}
   const lugMm       = (outsoleObj.lug_mm as number) ?? 2
   const lacingObj   = specs.lacing_heel_counter as Record<string, unknown> ?? {}
   const heelCounter = String(lacingObj.heel_counter ?? 'standard')
-  const midObj      = specs.midsole_resilience as Record<string, unknown> ?? {}
-  const resilience  = (midObj.resilience_pct as number) ?? 65
-
   const toeAngle = Math.max(
     parseFloat(String(cfd.big_toe_angle_l ?? '0')),
     parseFloat(String(cfd.big_toe_angle_r ?? '0')),
   )
-  const highVol    = q03.includes('High Volume')
-  const midVol     = q03.includes('Mid Volume')
-  const hasPain    = q04.length > 0
+  const highVol = q03.includes('High Volume')
 
   /* ── 1. 과내전 + 중립화 신발 → 부상 위험 ── */
   if (q02.includes('Overpronation') && stability === 'neutral') {
@@ -437,5 +430,4 @@ export function checkSafety(
 
   /* danger를 앞으로 정렬 */
   return warnings.sort((a, b) => (a.level === 'danger' ? -1 : 1) - (b.level === 'danger' ? -1 : 1))
-}
 }

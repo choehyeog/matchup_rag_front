@@ -52,7 +52,7 @@ export default function DeepSurvey() {
         user_id: session.cfdData.user_id || null,
         quick_report_context: session.quickReportText || '',
         ...cards,
-      })
+      } as import('@/types/api').DeepReportRequest)
       const updated: ScanSession = {
         ...session,
         surveyAnswers: cards as ScanSession['surveyAnswers'],
