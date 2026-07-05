@@ -1,0 +1,218 @@
+.screen {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  background: var(--color-parchment);
+  padding: 48px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--color-ink);
+}
+
+.desc {
+  font-size: 15px;
+  color: var(--color-ink-muted-48);
+  line-height: 1.4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.card {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--color-ink);
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: var(--color-ink-muted-48);
+  line-height: 1.5;
+  margin-top: -4px;
+}
+
+.sampleBtn {
+  font-size: 12px;
+  color: var(--color-primary);
+  background: none;
+  padding: 4px 8px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family);
+}
+
+/* File upload label */
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--color-parchment);
+  border: 1px dashed var(--color-hairline);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.fileLabel:active {
+  background: var(--color-divider);
+}
+
+/* Textarea */
+.textarea {
+  width: 100%;
+  height: 160px;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-ink-muted-80);
+  background: var(--color-pearl);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.textarea:focus {
+  outline: 2px solid var(--color-primary-focus);
+  outline-offset: -1px;
+}
+
+/* Photo slots */
+.photoRow {
+  display: flex;
+  gap: 10px;
+}
+
+.photoSlot {
+  flex: 1;
+  aspect-ratio: 1 / 1.15;
+  position: relative;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-hairline);
+  overflow: hidden;
+  background: var(--color-pearl);
+}
+
+.photoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoAdd {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  font-size: 13px;
+  color: var(--color-ink-muted-48);
+  font-family: var(--font-family);
+}
+
+.photoLabel {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-ink-muted-48);
+  pointer-events: none;
+}
+
+.removePhoto {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Submit */
+.submitBtn {
+  width: 100%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 400;
+  font-family: var(--font-family);
+  border-radius: var(--radius-pill);
+  padding: 14px 22px;
+  margin-top: 4px;
+  transition: opacity 0.15s;
+}
+
+.submitBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitBtn:not(:disabled):active {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+/* Error */
+.error {
+  font-size: 14px;
+  color: #c0392b;
+  text-align: center;
+  padding: 10px;
+  background: #fef0f0;
+  border-radius: var(--radius-sm);
+}

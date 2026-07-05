@@ -1,0 +1,232 @@
+/* DeepSurvey — Swiss design language */
+
+.screen {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  background: #ffffff;
+  padding: 0 16px 48px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ── Top nav ── */
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  color: #334155;
+  padding: 0;
+}
+
+/* ── Display header ── */
+.headerBlock {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #334155;
+}
+
+.subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+/* ── Progress dots ── */
+.progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.progressDot {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: #e2e8f0;
+  transition: background 0.2s;
+}
+
+.progressDot.done {
+  background: #94a3b8;
+}
+
+.progressDot.active {
+  background: #334155;
+}
+
+/* ── Card section ── */
+.cardSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #334155;
+}
+
+/* ── Question ── */
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.questionLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.5;
+}
+
+/* ── Option rows (Swiss inversion pattern) ── */
+.hiddenInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.option.selected {
+  background: #334155;
+  border-color: #334155;
+}
+
+.optionText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.option.selected .optionText {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.checkIcon {
+  display: none;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.option.selected .checkIcon {
+  display: flex;
+}
+
+/* ── Select / Number input ── */
+.select,
+.numberInput {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 14px;
+  color: #334155;
+  font-family: var(--font-family);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.select:focus,
+.numberInput:focus {
+  outline: 2px solid #334155;
+  outline-offset: -1px;
+}
+
+/* ── Card navigation ── */
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cardNavBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  transition: opacity 0.15s;
+}
+
+.cardNavBtn:disabled {
+  opacity: 0.15;
+}
+
+.cardCount {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* ── Submit ── */
+.submitBtn {
+  width: 100%;
+  background: #334155;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-family);
+  border-radius: 6px;
+  padding: 15px 22px;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+}
+
+.submitBtn:disabled {
+  opacity: 0.3;
+}
+
+.submitBtn:not(:disabled):active {
+  opacity: 0.82;
+}

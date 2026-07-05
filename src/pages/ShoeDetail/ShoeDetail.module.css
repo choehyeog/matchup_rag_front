@@ -1,0 +1,47 @@
+.screen {
+  width: 100%; max-width: 430px; min-height: 100dvh;
+  background: var(--color-parchment); padding: 14px 20px 40px;
+  display: flex; flex-direction: column; gap: 16px; box-sizing: border-box;
+}
+.header { display: flex; justify-content: space-between; align-items: center; }
+.backBtn { background: none; color: var(--color-ink-muted-48); padding: 8px; }
+.closeBtn { background: none; font-size: 24px; color: var(--color-ink-muted-48); padding: 4px 8px; }
+.heroCard {
+  display: flex; gap: 14px; align-items: center;
+  background: var(--color-canvas); border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg); padding: 16px;
+}
+.heroImg { width: 100px; height: 68px; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
+.heroInfo { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.heroBrand { font-size: 11px; font-weight: 600; color: var(--color-ink-muted-48); text-transform: uppercase; letter-spacing: 0.4px; }
+.heroName { font-size: 16px; font-weight: 700; color: var(--color-ink); line-height: 1.3; }
+.scorePill {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: #fff; font-size: 13px; font-weight: 700;
+  border-radius: var(--radius-pill); padding: 3px 10px; margin-top: 2px; align-self: flex-start;
+}
+.safetyWarn { font-size: 14px; }
+.warningBanner {
+  background: #fff5f5; border: 1px solid #fdb; border-radius: 10px;
+  padding: 10px 14px; font-size: 13px; color: #b45309; line-height: 1.5;
+}
+.breakdownCard {
+  background: var(--color-canvas); border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg); padding: 16px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.breakdownTitle { font-size: 15px; font-weight: 600; color: var(--color-ink); margin-bottom: 2px; }
+.dimRow { display: flex; flex-direction: column; gap: 4px; }
+.dimMeta { display: flex; justify-content: space-between; align-items: baseline; }
+.dimLabel { font-size: 13px; font-weight: 500; color: var(--color-ink); }
+.dimScore { font-size: 13px; font-weight: 700; }
+.dimBarBg { height: 8px; border-radius: 4px; background: var(--color-divider); overflow: hidden; }
+.dimBarFill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+.dimValues { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-ink-muted-48); }
+.statusText { text-align: center; color: var(--color-ink-muted-48); font-size: 15px; padding: 20px 0; }
+.errorText { text-align: center; color: #ff3b30; font-size: 14px; padding: 16px; }
+.backToListBtn {
+  width: 100%; background: transparent; color: var(--color-primary);
+  border: 1px solid var(--color-primary); font-size: 15px; font-family: var(--font-family);
+  border-radius: var(--radius-pill); padding: 12px 22px;
+}
