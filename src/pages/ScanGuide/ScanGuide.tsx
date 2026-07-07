@@ -184,7 +184,7 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
 
   function handleContinue() {
     const current = phase === 'right-guide' ? RIGHT_STEPS[stepIndex] : LEFT_STEPS[stepIndex]
-    if (current?.showPaperSizeModal && !paperSize) { setShowPaperModal(true); return }
+    if ((current as { showPaperSizeModal?: boolean })?.showPaperSizeModal && !paperSize) { setShowPaperModal(true); return }
 
     if (phase === 'right-guide') {
       if (stepIndex < RIGHT_STEPS.length - 1) setStepIndex(i => i + 1)
