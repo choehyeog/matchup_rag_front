@@ -328,9 +328,11 @@
 
 .previewImg {
   width: 100%;
+  height: auto;
   border-radius: 12px;
-  object-fit: cover;
-  max-height: 52dvh;
+  display: block;
+  max-height: 65dvh;
+  object-fit: contain;
 }
 
 .previewActions {
