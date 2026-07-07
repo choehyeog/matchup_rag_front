@@ -5,16 +5,26 @@ import type { CfdMeasurement, ScanSession } from '@/types/api'
 import styles from './ScanInput.module.css'
 
 const SAMPLE_JSON: CfdMeasurement = {
-  cfd_uuid: 'TEST-' + Date.now(),
-  cfd_no: '001',
-  foot_length_l: 260.83,
-  foot_length_r: 263.12,
-  ball_distance_l: 101.33,
-  ball_distance_r: 100.40,
-  foot_ball_girth_l: 254.5,
-  foot_ball_girth_r: 252.56,
-  instep_girth_l: 255.18,
-  instep_girth_r: 253.13,
+  cfd_no: '070301',
+  user_id: '',
+  cfd_uuid: '070301',
+  highheel: 'N',
+  arch_length_l: 180.4,
+  arch_length_r: 183.74,
+  foot_length_l: 245.58,
+  foot_length_r: 245.28,
+  foot_width_l: 99.4,
+  foot_width_r: 102.2,
+  instep_girth_l: 256.18,
+  instep_girth_r: 257.55,
+  ball_distance_l: 104.66,
+  ball_distance_r: 104.9,
+  big_toe_angle_l: 16.15,
+  big_toe_angle_r: 0.23,
+  foot_ball_girth_l: 240.97,
+  foot_ball_girth_r: 240.6,
+  shoe_fitting_correct: 5.0,
+  lang: 'kr',
 }
 
 export default function ScanInput() {

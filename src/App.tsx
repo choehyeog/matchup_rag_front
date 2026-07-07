@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Landing from '@/pages/Landing/Landing'
+import ScanGuide from '@/pages/ScanGuide/ScanGuide'
+import ScanComplete from '@/pages/ScanComplete/ScanComplete'
 import ScanInput from '@/pages/ScanInput/ScanInput'
 import QuickReport from '@/pages/QuickReport/QuickReport'
 import DeepSurvey from '@/pages/DeepSurvey/DeepSurvey'
@@ -12,7 +15,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* ── New onboarding flow ── */}
+        <Route path="/welcome" element={<Landing />} />
+        <Route path="/scan" element={<ScanGuide />} />
+        <Route path="/scan/camera" element={<ScanGuide cameraOnly />} />
+        <Route path="/scan/complete" element={<ScanComplete />} />
+
+        {/* ── Existing RAG flow ── */}
         <Route path="/" element={<ScanInput />} />
+        <Route path="/scan/input" element={<ScanInput />} />
         <Route path="/report/quick" element={<QuickReport />} />
         <Route path="/report/deep-survey" element={<DeepSurvey />} />
         <Route path="/report/deep" element={<DeepReport />} />

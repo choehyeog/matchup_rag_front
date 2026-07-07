@@ -1,0 +1,154 @@
+.screen {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  background: #ffffff;
+  padding: 56px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* ── Photo row ── */
+.photoRow {
+  display: flex;
+  gap: 12px;
+}
+
+.photoCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.photoLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.photoImg {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+/* ── Info card ── */
+.infoCard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.infoValue {
+  font-size: 13px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.primaryBtn {
+  width: 100%;
+  background: #334155;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  border-radius: 9999px;
+  padding: 16px;
+  transition: opacity 0.15s;
+}
+
+.primaryBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primaryBtn:not(:disabled):active {
+  opacity: 0.8;
+}
+
+.retakeBtn {
+  background: none;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  padding: 10px;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Success ── */
+.successBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.successTitle {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+}
+
+.successDesc {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 280px;
+}
