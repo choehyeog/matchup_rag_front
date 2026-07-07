@@ -156,10 +156,10 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
     const { beta, gamma } = orientRef.current
     const w: string[] = []
 
-    if      (beta  >  30) w.push('카메라가 앞쪽으로 많이 기울어져 있습니다')
-    else if (beta  < -30) w.push('카메라가 뒤쪽으로 많이 기울어져 있습니다')
-    if      (gamma >  30) w.push('카메라가 오른쪽으로 많이 기울어져 있습니다')
-    else if (gamma < -30) w.push('카메라가 왼쪽으로 많이 기울어져 있습니다')
+    if      (beta  >  15) w.push('카메라가 앞쪽으로 많이 기울어져 있습니다')
+    else if (beta  < -15) w.push('카메라가 뒤쪽으로 많이 기울어져 있습니다')
+    if      (gamma >  15) w.push('카메라가 오른쪽으로 많이 기울어져 있습니다')
+    else if (gamma < -15) w.push('카메라가 왼쪽으로 많이 기울어져 있습니다')
     if (inside < 100)            w.push('피사체가 어둡습니다')
     if (inside - outside < 40)   w.push('바닥 색상이 종이와 비슷하여 구분이 어렵습니다')
     if (motion > 20)             w.push('카메라를 고정해 주세요')
