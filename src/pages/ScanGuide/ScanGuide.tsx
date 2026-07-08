@@ -1,26 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, X } from 'lucide-react'
 import styles from './ScanGuide.module.css'
 
-type Phase = 'right-prepare' | 'right-slider' | 'right-camera' | 'left-slider' | 'left-camera'
+type Phase = 'right-guide' | 'right-camera' | 'left-guide' | 'left-camera'
 type PaperSize = 'A4' | 'LETTER'
 
-const RIGHT_PREPARE = {
-  image: '/scan/start.webp',
-  title: '준비물 확인',
-  text: 'A4 또는 US Letter 크기의 깨끗한 종이 한 장이 필요합니다.',
-}
-
-const RIGHT_SLIDES = [
-  { image: '/scan/no_shoes.webp',       title: '신발을 벗어주세요',    text: '흰색 양말은 피해주세요.\n맨발도 괜찮습니다.' },
-  { image: '/scan/paper.webp',          title: '종이를 벽에 붙여주세요', text: '종이의 짧은 면이 벽과 맞닿도록 바닥에 놓아주세요.' },
-  { image: '/scan/right_foot.webp',     title: '오른발 위치',           text: '오른발을 종이 위에 올리고\n뒤꿈치를 벽에 붙여주세요.' },
-  { image: '/scan/right_foot_above.webp', title: '촬영 방법',           text: '스마트폰을 허리 높이에서 수직으로 내려다보며 들어주세요.\n종이 네 모서리와 발 전체가 가이드 박스 안에 들어오게 맞춰주세요.' },
+const RIGHT_STEPS = [
+  { image: '/scan/start.webp',           title: '준비물 확인',        text: 'A4 또는 US Letter 크기의 깨끗한 종이 한 장이 필요합니다.' },
+  { image: '/scan/no_shoes.webp',        title: '신발을 벗어주세요',   text: '흰색 양말은 피해주세요.\n맨발도 괜찮습니다.' },
+  { image: '/scan/paper.webp',           title: '종이를 벽에 붙여주세요', text: '종이의 짧은 면이 벽과 맞닿도록 바닥에 놓아주세요.' },
+  { image: '/scan/right_foot.webp',      title: '오른발 위치',         text: '오른발을 종이 위에 올리고\n뒤꿈치를 벽에 붙여주세요.' },
+  { image: '/scan/right_foot_above.webp', title: '촬영 방법',          text: '스마트폰을 허리 높이에서 수직으로 내려다보며 들어주세요.\n종이 네 모서리와 발 전체가 가이드 박스 안에 들어오게 맞춰주세요.' },
 ]
 
-const LEFT_SLIDES = [
-  { image: '/scan/left_foot.webp',      title: '왼발 위치',   text: '이번엔 왼발을 종이 위에 올리고\n뒤꿈치를 벽에 붙여주세요.' },
+const LEFT_STEPS = [
+  { image: '/scan/left_foot.webp',       title: '왼발 위치',  text: '이번엔 왼발을 종이 위에 올리고\n뒤꿈치를 벽에 붙여주세요.' },
   { image: '/scan/left_foot_above.webp', title: '촬영 방법',  text: '오른발과 같은 방법으로 왼발을 촬영합니다.\n종이 네 모서리와 발 전체가 가이드 박스 안에 들어오게 맞춰주세요.' },
 ]
 
@@ -51,8 +46,8 @@ function computeMotion(curr: Uint8ClampedArray, prev: Uint8ClampedArray): number
 export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean }) {
   const navigate = useNavigate()
 
-  const [phase, setPhase]           = useState<Phase>(cameraOnly ? 'right-camera' : 'right-prepare')
-  const [slideIndex, setSlideIndex] = useState(0)
+  const [phase, setPhase]           = useState<Phase>(cameraOnly ? 'right-camera' : 'right-guide')
+  const [stepIndex, setStepIndex]   = useState(0)
   const [paperSize, setPaperSize]   = useState<PaperSize | null>(null)
   const [showPaperModal, setShowPaperModal] = useState(false)
   const [previewSrc, setPreviewSrc] = useState<string | null>(null)
@@ -69,16 +64,18 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
   const paperSizeRef = useRef<PaperSize>('A4')
 
   const isCamera = phase === 'right-camera' || phase === 'left-camera'
-  const slides   = phase === 'right-slider' || phase === 'right-camera' ? RIGHT_SLIDES : LEFT_SLIDES
-  const footLabel = phase === 'right-camera' || phase === 'right-slider' || phase === 'right-prepare' ? '오른발' : '왼발'
+  const steps    = phase === 'right-guide' ? RIGHT_STEPS : LEFT_STEPS
+  const current  = steps[stepIndex]
+  const isLastStep = phase === 'right-guide'
+    ? stepIndex === RIGHT_STEPS.length - 1
+    : stepIndex === LEFT_STEPS.length - 1
 
-  // Progress: 1(prepare) + 4(right slides) + 2(left slides) = 7
-  const totalDots = 1 + RIGHT_SLIDES.length + LEFT_SLIDES.length
+  // Progress dots: 5 right + 2 left = 7
+  const totalDots = RIGHT_STEPS.length + LEFT_STEPS.length
   const activeDot =
-    phase === 'right-prepare' ? 0 :
-    phase === 'right-slider'  ? 1 + slideIndex :
-    phase === 'right-camera'  ? 1 + RIGHT_SLIDES.length :
-    phase === 'left-slider'   ? 1 + RIGHT_SLIDES.length + slideIndex :
+    phase === 'right-guide'  ? stepIndex :
+    phase === 'right-camera' ? RIGHT_STEPS.length :
+    phase === 'left-guide'   ? RIGHT_STEPS.length + stepIndex :
     totalDots - 1
 
   useEffect(() => { if (paperSize) paperSizeRef.current = paperSize }, [paperSize])
@@ -164,11 +161,37 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
   // ── Navigation ──
 
   function handleBack() {
-    if (phase === 'right-prepare')  navigate('/welcome')
-    else if (phase === 'right-slider') { if (slideIndex > 0) setSlideIndex(i => i-1); else { setPhase('right-prepare'); setSlideIndex(0) } }
-    else if (phase === 'right-camera') { setPhase('right-slider'); setSlideIndex(RIGHT_SLIDES.length - 1) }
-    else if (phase === 'left-slider')  { if (slideIndex > 0) setSlideIndex(i => i-1); else setPhase('right-camera') }
-    else if (phase === 'left-camera')  { setPhase('left-slider'); setSlideIndex(LEFT_SLIDES.length - 1) }
+    if (phase === 'right-guide') {
+      if (stepIndex > 0) setStepIndex(i => i - 1)
+      else navigate('/welcome')
+    } else if (phase === 'right-camera') {
+      setPhase('right-guide'); setStepIndex(RIGHT_STEPS.length - 1)
+    } else if (phase === 'left-guide') {
+      if (stepIndex > 0) setStepIndex(i => i - 1)
+      else setPhase('right-camera')
+    } else if (phase === 'left-camera') {
+      setPhase('left-guide'); setStepIndex(LEFT_STEPS.length - 1)
+    }
+  }
+
+  function handleContinue() {
+    if (phase === 'right-guide') {
+      if (stepIndex === 0) {
+        setShowPaperModal(true)
+        return
+      }
+      if (isLastStep) {
+        setPhase('right-camera')
+      } else {
+        setStepIndex(i => i + 1)
+      }
+    } else if (phase === 'left-guide') {
+      if (isLastStep) {
+        setPhase('left-camera')
+      } else {
+        setStepIndex(i => i + 1)
+      }
+    }
   }
 
   function capturePhoto(): string | null {
@@ -196,13 +219,14 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
     if (phase === 'right-camera') {
       sessionStorage.setItem('scanRightPhoto', previewSrc)
       sessionStorage.setItem('scanPaperSize', paperSize ?? 'A4')
-      setPreviewSrc(null); setPhase('left-slider'); setSlideIndex(0)
+      setPreviewSrc(null); setPhase('left-guide'); setStepIndex(0)
     } else {
       sessionStorage.setItem('scanLeftPhoto', previewSrc)
       navigate('/scan/complete')
     }
   }
 
+  const footLabel  = phase === 'right-camera' ? '오른발' : '왼발'
   const aspectRatio = paperSize === 'LETTER' ? '85/110' : '210/297'
 
   // ── Render ──
@@ -215,31 +239,14 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
         <button className={styles.navBtn} onClick={handleBack} aria-label="뒤로">
           <ArrowLeft size={22} strokeWidth={1.8} />
         </button>
-        {!isCamera && <span className={styles.navLabel}>{footLabel} 촬영</span>}
+        {!isCamera && <span className={styles.navLabel}>{phase === 'right-guide' ? '오른발' : '왼발'} 촬영</span>}
         <button className={styles.navBtn} onClick={() => navigate('/welcome')} aria-label="닫기">
           <X size={22} strokeWidth={1.8} />
         </button>
       </nav>
 
-      {/* ── Prepare screen (step 0) ── */}
-      {phase === 'right-prepare' && (
-        <div className={styles.guide}>
-          <div className={styles.progress}>
-            {Array.from({ length: totalDots }, (_, i) => (
-              <div key={i} className={`${styles.dot} ${i < activeDot ? styles.dotDone : ''} ${i === activeDot ? styles.dotActive : ''}`} />
-            ))}
-          </div>
-          <img src={RIGHT_PREPARE.image} alt={RIGHT_PREPARE.title} className={styles.guideImg} />
-          <div className={styles.guideText}>
-            <h2 className={styles.guideTitle}>{RIGHT_PREPARE.title}</h2>
-            <p className={styles.guideDesc}>{RIGHT_PREPARE.text}</p>
-          </div>
-          <button className={styles.continueBtn} onClick={() => setShowPaperModal(true)}>계속</button>
-        </div>
-      )}
-
-      {/* ── Slide guide ── */}
-      {(phase === 'right-slider' || phase === 'left-slider') && (
+      {/* ── Guide screen ── */}
+      {!isCamera && (
         <div className={styles.guide}>
           <div className={styles.progress}>
             {Array.from({ length: totalDots }, (_, i) => (
@@ -247,37 +254,15 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
             ))}
           </div>
 
-          {/* Card slider */}
-          <div className={styles.sliderWrap}>
-            <div className={styles.cardTrack} style={{ transform: `translateX(-${slideIndex * 100}%)` }}>
-              {slides.map((slide, i) => (
-                <div key={i} className={styles.slideCard}>
-                  <img src={slide.image} alt={slide.title} className={styles.guideImg} />
-                </div>
-              ))}
-            </div>
-            {slideIndex > 0 && (
-              <button className={`${styles.arrowBtn} ${styles.arrowLeft}`} onClick={() => setSlideIndex(i => i-1)} aria-label="이전">
-                <ChevronLeft size={20} strokeWidth={2.5} />
-              </button>
-            )}
-            {slideIndex < slides.length - 1 && (
-              <button className={`${styles.arrowBtn} ${styles.arrowRight}`} onClick={() => setSlideIndex(i => i+1)} aria-label="다음">
-                <ChevronRight size={20} strokeWidth={2.5} />
-              </button>
-            )}
-          </div>
+          <img src={current.image} alt={current.title} className={styles.guideImg} />
 
           <div className={styles.guideText}>
-            <h2 className={styles.guideTitle}>{slides[slideIndex]?.title}</h2>
-            <p className={styles.guideDesc}>{slides[slideIndex]?.text}</p>
+            <h2 className={styles.guideTitle}>{current.title}</h2>
+            <p className={styles.guideDesc}>{current.text}</p>
           </div>
 
-          <button
-            className={styles.continueBtn}
-            onClick={() => { phase === 'right-slider' ? setPhase('right-camera') : setPhase('left-camera') }}
-          >
-            촬영하기
+          <button className={styles.continueBtn} onClick={handleContinue}>
+            {isLastStep ? '촬영하기' : '계속'}
           </button>
         </div>
       )}
@@ -327,10 +312,10 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
           <div className={styles.previewSheet}>
             <p className={styles.paperModalTitle}>종이 크기를 선택하세요</p>
             <div className={styles.paperOptions}>
-              <button className={styles.paperBtn} onClick={() => { setPaperSize('A4'); setShowPaperModal(false); setPhase('right-slider'); setSlideIndex(0) }}>
+              <button className={styles.paperBtn} onClick={() => { setPaperSize('A4'); setShowPaperModal(false); setStepIndex(1) }}>
                 A4 <span>(210 × 297 mm)</span>
               </button>
-              <button className={styles.paperBtn} onClick={() => { setPaperSize('LETTER'); setShowPaperModal(false); setPhase('right-slider'); setSlideIndex(0) }}>
+              <button className={styles.paperBtn} onClick={() => { setPaperSize('LETTER'); setShowPaperModal(false); setStepIndex(1) }}>
                 US Letter <span>(8.5" × 11")</span>
               </button>
             </div>
