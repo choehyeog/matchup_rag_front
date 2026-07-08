@@ -99,7 +99,10 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
       window.addEventListener('deviceorientation', handleOrientation)
     }
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'environment' } })
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } },
+      })
       streamRef.current = stream
       if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play() }
     } catch (err) { console.error('카메라 접근 실패:', err) }
