@@ -99,7 +99,10 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
       window.addEventListener('deviceorientation', handleOrientation)
     }
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'environment' } })
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: { facingMode: 'environment', width: { ideal: 4096 }, height: { ideal: 3072 } },
+      })
       streamRef.current = stream
       if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play() }
     } catch (err) { console.error('카메라 접근 실패:', err) }
@@ -150,12 +153,10 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
     if (w.length === 0) {
       stableRef.current += 1
       setAllClear(stableRef.current >= 2)
-      if (stableRef.current >= 3) {
-        stableRef.current = 0
-        const src = capturePhoto()
-        if (src) { stopAll(); setPreviewSrc(src) }
-      }
-    } else { stableRef.current = 0; setAllClear(false) }
+    } else {
+      stableRef.current = 0
+      setAllClear(false)
+    }
   }
 
   // ── Navigation ──
@@ -204,7 +205,7 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
     canvas.height = guideBox.clientHeight / scale
     const ctx = canvas.getContext('2d')!
     ctx.drawImage(video, (video.videoWidth-canvas.width)/2, (video.videoHeight-canvas.height)/2, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height)
-    return canvas.toDataURL('image/jpeg', 0.92)
+    return canvas.toDataURL('image/jpeg', 0.96)
   }
 
   function handleManualShutter() {
@@ -286,7 +287,7 @@ export default function ScanGuide({ cameraOnly = false }: { cameraOnly?: boolean
           </div>
           <div className={styles.controls}>
             <div className={styles.footTag}>{footLabel}</div>
-            <button className={`${styles.shutter} ${allClear ? styles.shutterOk : ''}`} onClick={handleManualShutter} aria-label="직접 촬영" />
+            <button className={`${styles.shutter} ${allClear ? styles.shutterOk : styles.shutterDisabled}`} onClick={handleManualShutter} disabled={!allClear} aria-label="직접 촬영" />
             <span className={styles.shutterHint}>직접 촬영</span>
           </div>
         </div>

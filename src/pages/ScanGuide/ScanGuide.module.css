@@ -289,7 +289,16 @@
   border-color: rgba(34, 197, 94, 0.55);
 }
 
-.shutter:active { transform: scale(0.91); }
+.shutterDisabled {
+  background: #4b5563;
+  cursor: not-allowed;
+}
+
+.shutterDisabled::before {
+  border-color: rgba(75, 85, 99, 0.4);
+}
+
+.shutter:not(:disabled):active { transform: scale(0.91); }
 
 .shutterHint {
   font-size: 10px;
