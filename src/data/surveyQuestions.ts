@@ -22,7 +22,18 @@ export const DEEP_SURVEY_CARDS: SurveyCard[] = [
     questions: [
       { id: 'gender', label: '성별을 선택해 주세요.', type: 'radio', options: ['남성', '여성', '기타'], apiCard: 'card1_physical' },
       { id: 'age_group', label: '연령대를 선택해 주세요.', type: 'select', options: ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대 이상'], apiCard: 'card1_physical' },
-      { id: 'height', label: '키(신장)를 입력해 주세요. (cm)', type: 'number', apiCard: 'card1_physical' },
+      {
+        id: 'height', label: '키(신장)를 선택해 주세요.', type: 'radio',
+        options: [
+          "150cm / 4'11\" 이하",
+          "~ 160cm / 5'3\"",
+          "~ 170cm / 5'7\"",
+          "~ 180cm / 5'11\"",
+          "~ 190cm / 6'3\"",
+          "200cm / 6'7\" 이상",
+        ],
+        apiCard: 'card1_physical',
+      },
       { id: 'weight_status', label: '본인의 평소 체중 상태를 선택해 주세요.', type: 'select', options: ['가벼운편', '정상', '과체중', '비만'], apiCard: 'card1_physical' },
     ],
   },
