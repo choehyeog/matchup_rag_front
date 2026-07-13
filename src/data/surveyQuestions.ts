@@ -96,7 +96,7 @@ export const DEEP_SURVEY_CARDS: SurveyCard[] = [
     questions: [
       {
         id: 'shoe_wear_outsole', label: '자주 신는 운동화 바닥면을 뒤집어 보았을 때, 어디가 가장 많이 닳아 있나요?', type: 'image_radio',
-        options: ['바깥쪽 테두리 모서리만 급격하게 사선으로 깎여 닳았다.', '안쪽 면이 평평하게 완전히 마모되었거나 안쪽이 더 많이 닳았다.', '가운데를 중심으로 양쪽이 비교적 균일하게 마모되었다.'],
+        options: ['뒷꿈치를 포함하여 바깥쪽 테두리 모서리만 급격하게 사선으로 깎여 닳았다.', '안쪽 면이 평평하게 완전히 마모되었거나 안쪽이 더 많이 닳았다.', '가운데를 중심으로 양쪽이 비교적 균일하게 마모되었다.'],
         apiCard: 'card5_lifestyle',
       },
       {
