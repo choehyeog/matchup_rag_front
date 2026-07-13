@@ -9,12 +9,8 @@ interface DeepReportData {
   error?: string
 }
 
-interface CaseReportData {
-  activity_profile?: { guide?: string; data_insight?: string }
-  integrated_analysis?: Record<string, { guide?: string; data_insight?: string }>
-  recommendations?: Record<string, { guide?: string; data_insight?: string }>
-  error?: string
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyObj = Record<string, any>
 
 export function flattenDeepReport(data: unknown): string {
   if (typeof data === 'string') return data
@@ -79,48 +75,66 @@ export function flattenCaseReport(data: unknown): string {
   if (typeof data === 'string') return data
   if (typeof data !== 'object' || data === null) return String(data)
 
-  const d = data as CaseReportData
+  const d = data as AnyObj
   if (d.error) return `[리포트 생성 오류] ${d.error}`
 
   const sections: string[] = []
 
-  if (d.activity_profile?.guide) {
-    sections.push(`[Activity Profile]\n${d.activity_profile.guide}`)
+  // New schema (after NAS restart): activity_profile / integrated_analysis / recommendations
+  if (d.activity_profile || d.integrated_analysis || d.recommendations) {
+    if (d.activity_profile?.guide) {
+      sections.push(`[Activity Profile]\n${d.activity_profile.guide}`)
+    }
+    if (d.integrated_analysis) {
+      const labels: Record<string, string> = {
+        scan_findings: 'Scan',
+        survey_findings: 'Survey',
+        overall_assessment: 'Assessment',
+      }
+      const lines = ['[Integrated Analysis]']
+      for (const [key, label] of Object.entries(labels)) {
+        const item = d.integrated_analysis[key]
+        if (item?.guide) {
+          lines.push(`${label}: ${item.guide}`)
+          if (item.data_insight) lines.push(item.data_insight)
+        }
+      }
+      sections.push(lines.join('\n'))
+    }
+    if (d.recommendations) {
+      const labels: Record<string, string> = {
+        shoe_specification: 'Shoe Spec',
+        wear_guide: 'Wear Guide',
+        injury_prevention: 'Injury Prevention',
+      }
+      const lines = ['[Recommendations]']
+      for (const [key, label] of Object.entries(labels)) {
+        const item = d.recommendations[key]
+        if (item?.guide) {
+          lines.push(`${label}: ${item.guide}`)
+          if (item.data_insight) lines.push(item.data_insight)
+        }
+      }
+      sections.push(lines.join('\n'))
+    }
+    return sections.join('\n\n')
   }
 
-  if (d.integrated_analysis) {
-    const labels: Record<string, string> = {
-      scan_findings: 'Scan',
-      survey_findings: 'Survey',
-      overall_assessment: 'Assessment',
-    }
-    const lines = ['[Integrated Analysis]']
-    for (const [key, label] of Object.entries(labels)) {
-      const item = d.integrated_analysis[key]
-      if (item?.guide) {
-        lines.push(`${label}: ${item.guide}`)
-        if (item.data_insight) lines.push(item.data_insight)
-      }
-    }
+  // Old schema fallback (before NAS restart): sport_biomechanics / integrated_summary / etc.
+  if (d.title) sections.push(d.title)
+  if (d.sport_biomechanics) sections.push(`[종목 특성]\n${d.sport_biomechanics}`)
+  if (d.integrated_summary) {
+    const s = d.integrated_summary
+    const lines = ['[종합 분석]']
+    if (s.phase1_scan_summary) lines.push(`스캔 요약: ${s.phase1_scan_summary}`)
+    if (s.phase2_deep_summary) lines.push(`심층 요약: ${s.phase2_deep_summary}`)
+    if (s.phase3_case_summary) lines.push(`케이스 요약: ${s.phase3_case_summary}`)
+    if (s.pedorthic_diagnosis) lines.push(`\n${s.pedorthic_diagnosis}`)
     sections.push(lines.join('\n'))
   }
-
-  if (d.recommendations) {
-    const labels: Record<string, string> = {
-      shoe_specification: 'Shoe Spec',
-      wear_guide: 'Wear Guide',
-      injury_prevention: 'Injury Prevention',
-    }
-    const lines = ['[Recommendations]']
-    for (const [key, label] of Object.entries(labels)) {
-      const item = d.recommendations[key]
-      if (item?.guide) {
-        lines.push(`${label}: ${item.guide}`)
-        if (item.data_insight) lines.push(item.data_insight)
-      }
-    }
-    sections.push(lines.join('\n'))
-  }
+  if (d.shoe_recommendation) sections.push(`[신발 추천]\n${d.shoe_recommendation}`)
+  if (d.wear_guide) sections.push(`[착용 가이드]\n${d.wear_guide}`)
+  if (d.precautions && typeof d.precautions === 'string') sections.push(`[주의사항]\n${d.precautions}`)
 
   return sections.join('\n\n')
 }

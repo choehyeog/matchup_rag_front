@@ -106,6 +106,8 @@ export default function CaseReport() {
 
   const bullets = session.caseReportSummary || []
   const hasShoes = (session.matchedShoes || []).length > 0
+  const d = session.caseReportData
+  const hasNewSchema = !!(d && (d.activity_profile || d.integrated_analysis || d.recommendations))
 
   return (
     <div className={styles.screen}>
@@ -138,8 +140,8 @@ export default function CaseReport() {
       )}
 
       <div className={styles.reportBody}>
-        {session.caseReportData
-          ? <CaseReportBody data={session.caseReportData} />
+        {hasNewSchema
+          ? <CaseReportBody data={session.caseReportData!} />
           : (session.caseReportText || '').split('\n\n').filter(Boolean).map((para, i) => (
               <p key={i} className={styles.paragraph}>{para}</p>
             ))
