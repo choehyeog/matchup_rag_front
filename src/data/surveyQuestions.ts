@@ -23,7 +23,7 @@ export const DEEP_SURVEY_CARDS: SurveyCard[] = [
       { id: 'gender', label: '성별을 선택해 주세요.', type: 'radio', options: ['남성', '여성', '기타'], apiCard: 'card1_physical' },
       { id: 'age_group', label: '연령대를 선택해 주세요.', type: 'select', options: ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대 이상'], apiCard: 'card1_physical' },
       {
-        id: 'height', label: '키(신장)를 선택해 주세요.', type: 'radio',
+        id: 'height', label: '키(신장)를 선택해 주세요.', type: 'select',
         options: [
           "150cm / 4'11\" 이하",
           "~ 160cm / 5'3\"",
