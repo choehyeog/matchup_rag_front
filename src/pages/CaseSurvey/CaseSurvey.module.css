@@ -209,12 +209,25 @@
   margin-top: 4px;
 }
 
+.freeTextHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .freeTextLabel {
   font-size: 10px;
   font-weight: 600;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.4px;
+}
+
+.freeTextCount {
+  font-size: 10px;
+  font-weight: 500;
+  color: #cbd5e1;
+  font-variant-numeric: tabular-nums;
 }
 
 .freeTextInput {

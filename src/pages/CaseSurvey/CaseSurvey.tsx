@@ -207,11 +207,17 @@ export default function CaseSurvey() {
 
         {currentQ.freeTextPlaceholder && (
           <div className={styles.freeTextWrapper}>
-            <span className={styles.freeTextLabel}>Optional</span>
+            <div className={styles.freeTextHeader}>
+              <span className={styles.freeTextLabel}>Optional</span>
+              <span className={styles.freeTextCount}>
+                {(answers[`${currentQ.id}_text`] || '').length} / {currentQ.freeTextMaxLength ?? 150}
+              </span>
+            </div>
             <textarea
               className={styles.freeTextInput}
               placeholder={currentQ.freeTextPlaceholder}
               rows={3}
+              maxLength={currentQ.freeTextMaxLength ?? 150}
               value={answers[`${currentQ.id}_text`] || ''}
               onChange={e => setAnswers(prev => ({ ...prev, [`${currentQ.id}_text`]: e.target.value }))}
             />

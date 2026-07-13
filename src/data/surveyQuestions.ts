@@ -105,6 +105,7 @@ export interface CaseQuestion {
   options: string[]
   optional?: boolean            // true이면 미답변 상태에서도 제출 가능
   freeTextPlaceholder?: string  // 설정 시 옵션 아래에 선택 입력란 표시
+  freeTextMaxLength?: number    // 입력 최대 글자 수 (기본값 150)
 }
 
 export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
@@ -192,6 +193,7 @@ export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
       options: [],
       optional: true,
       freeTextPlaceholder: 'Please describe any other questions or concerns in detail.',
+      freeTextMaxLength: 300,
     },
   ],
 }
