@@ -72,7 +72,9 @@ export default function CaseSurvey() {
   const questions   = CASE_SURVEY[sportType] || []
   const totalCards  = questions.length
   const currentQ    = questions[cardIndex]
-  const allAnswered = questions.every(q => !!answers[q.id])
+  const allAnswered = questions
+    .filter(q => !q.optional && q.options.length > 0)
+    .every(q => !!answers[q.id])
 
   function handleSportChange(value: string) {
     setSportType(value)
@@ -202,6 +204,19 @@ export default function CaseSurvey() {
             </label>
           )
         })}
+
+        {currentQ.freeTextPlaceholder && (
+          <div className={styles.freeTextWrapper}>
+            <span className={styles.freeTextLabel}>Optional</span>
+            <textarea
+              className={styles.freeTextInput}
+              placeholder={currentQ.freeTextPlaceholder}
+              rows={3}
+              value={answers[`${currentQ.id}_text`] || ''}
+              onChange={e => setAnswers(prev => ({ ...prev, [`${currentQ.id}_text`]: e.target.value }))}
+            />
+          </div>
+        )}
       </div>
 
       {/* Card navigation */}

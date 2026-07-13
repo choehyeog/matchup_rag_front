@@ -201,6 +201,47 @@
   display: flex;
 }
 
+/* ── Free text input ── */
+.freeTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.freeTextLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.freeTextInput {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  font-size: 13px;
+  font-weight: 400;
+  color: #334155;
+  font-family: var(--font-family);
+  line-height: 1.6;
+  resize: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.freeTextInput::placeholder {
+  color: #94a3b8;
+}
+
+.freeTextInput:focus {
+  outline: none;
+  border-color: #334155;
+}
+
 /* ── Card navigation ── */
 .navRow {
   display: flex;

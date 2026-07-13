@@ -97,12 +97,14 @@ export const DEEP_SURVEY_CARDS: SurveyCard[] = [
   },
 ]
 
-// 케이스 설문 — 러닝 (8문항)
+// 케이스 설문 — 러닝 (9문항)
 export interface CaseQuestion {
   id: string
   category: string
   text: string
   options: string[]
+  optional?: boolean            // true이면 미답변 상태에서도 제출 가능
+  freeTextPlaceholder?: string  // 설정 시 옵션 아래에 선택 입력란 표시
 }
 
 export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
@@ -138,21 +140,21 @@ export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
       id: 'Q04', category: 'Pathomechanics',
       text: 'Where do you primarily feel chronic localized discomfort or pain post-run?',
       options: [
-        'Plantar Fasciitis: Sharp pain at the bottom of the heel or arch.',
-        'Medial Tibial Stress Syndrome (Shin Splints): Dull aching pain along the inner shin.',
-        'Achilles Tendinopathy: Stiffness or burning along the heel back cord.',
-        'Iliotibial Band Syndrome (ITBS): Sharp pain on the outer side of the knee.',
-        'Metatarsalgia / Morton\'s Neuroma: Searing or tingling pain beneath the ball of the foot.',
+        'Sharp pain at the bottom of the heel or arch.',
+        'Dull aching pain along the inner shin.',
+        'Stiffness or burning along the back of the heel (Achilles).',
+        'Sharp pain on the outer side of the knee.',
+        'Searing or tingling pain beneath the ball of the foot.',
+        'No particular discomfort or pain.',
       ],
+      freeTextPlaceholder: 'Any other area?',
     },
     {
       id: 'Q05', category: 'Volumetric Adaptability',
       text: 'What is your primary constraint regarding toe box fit during long runs?',
-      options: [
-        'Bunions / Lateral Friction: Side compression pinching the metatarsal heads.',
-        'Toe Compression / Hematoma: Toes sliding forward causing bruised nails.',
-        'Normal Volumetric Fit: Comfortable fit with no hot spots.',
-      ],
+      options: [],
+      optional: true,
+      freeTextPlaceholder: 'Any other constraints?',
     },
     {
       id: 'Q06', category: 'Tribology & Surface',
@@ -165,10 +167,11 @@ export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
     },
     {
       id: 'Q07', category: 'Bending Stiffness',
-      text: 'What is your structural preference for midsole flexibility?',
+      text: 'What is the midsole structure of the shoes you currently wear most often?',
       options: [
         'High Longitudinal Bending Stiffness: Snappy, rigid plate-driven platform maximizing propulsion.',
         'Low Longitudinal Bending Stiffness: Natural, high-flexibility platform mimicking intrinsic anatomy.',
+        "I'm not sure.",
       ],
     },
     {
@@ -177,7 +180,15 @@ export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
       options: [
         'High Instep Pressure: Focal pinching or numbness on top of the foot.',
         'Heel Slippage: Heel lifting out of the counter cup during toe-off.',
+        'Neither of the above issues apply.',
       ],
+    },
+    {
+      id: 'Q09', category: 'Additional Notes',
+      text: 'Anything else you would like us to know? (Optional)',
+      options: [],
+      optional: true,
+      freeTextPlaceholder: 'Please describe any other questions or concerns in detail.',
     },
   ],
 }
