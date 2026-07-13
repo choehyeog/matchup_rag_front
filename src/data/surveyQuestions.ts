@@ -152,8 +152,11 @@ export const CASE_SURVEY: Record<string, CaseQuestion[]> = {
     {
       id: 'Q05', category: 'Volumetric Adaptability',
       text: 'What is your primary constraint regarding toe box fit during long runs?',
-      options: [],
-      optional: true,
+      options: [
+        'Side compression pinching the metatarsal heads.',
+        'Toes sliding forward causing bruised nails.',
+        'Comfortable fit with no particular hot spots.',
+      ],
       freeTextPlaceholder: 'Any other constraints?',
     },
     {
