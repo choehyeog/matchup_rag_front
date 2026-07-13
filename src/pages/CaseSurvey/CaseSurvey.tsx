@@ -101,6 +101,7 @@ export default function CaseSurvey() {
         user_id: session.cfdData.user_id || null,
         sport_type: sportType,
         case_survey_data: answers,
+        force_regenerate: true,
       })
       caseReportData    = res.integrated_case_solution
       caseReportText    = flattenCaseReport(res.integrated_case_solution)
