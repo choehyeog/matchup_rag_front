@@ -10,17 +10,9 @@ interface DeepReportData {
 }
 
 interface CaseReportData {
-  title?: string
-  sport_biomechanics?: string
-  integrated_summary?: {
-    phase1_scan_summary?: string
-    phase2_deep_summary?: string
-    phase3_case_summary?: string
-    pedorthic_diagnosis?: string
-  }
-  shoe_recommendation?: string
-  wear_guide?: string
-  precautions?: string
+  activity_profile?: { guide?: string; data_insight?: string }
+  integrated_analysis?: Record<string, { guide?: string; data_insight?: string }>
+  recommendations?: Record<string, { guide?: string; data_insight?: string }>
   error?: string
 }
 
@@ -92,22 +84,43 @@ export function flattenCaseReport(data: unknown): string {
 
   const sections: string[] = []
 
-  if (d.title) sections.push(d.title)
-  if (d.sport_biomechanics) sections.push(`[종목 특성]\n${d.sport_biomechanics}`)
+  if (d.activity_profile?.guide) {
+    sections.push(`[Activity Profile]\n${d.activity_profile.guide}`)
+  }
 
-  if (d.integrated_summary) {
-    const s = d.integrated_summary
-    const lines = ['[종합 분석]']
-    if (s.phase1_scan_summary) lines.push(`스캔 요약: ${s.phase1_scan_summary}`)
-    if (s.phase2_deep_summary) lines.push(`심층 요약: ${s.phase2_deep_summary}`)
-    if (s.phase3_case_summary) lines.push(`케이스 요약: ${s.phase3_case_summary}`)
-    if (s.pedorthic_diagnosis) lines.push(`\n${s.pedorthic_diagnosis}`)
+  if (d.integrated_analysis) {
+    const labels: Record<string, string> = {
+      scan_findings: 'Scan',
+      survey_findings: 'Survey',
+      overall_assessment: 'Assessment',
+    }
+    const lines = ['[Integrated Analysis]']
+    for (const [key, label] of Object.entries(labels)) {
+      const item = d.integrated_analysis[key]
+      if (item?.guide) {
+        lines.push(`${label}: ${item.guide}`)
+        if (item.data_insight) lines.push(item.data_insight)
+      }
+    }
     sections.push(lines.join('\n'))
   }
 
-  if (d.shoe_recommendation) sections.push(`[신발 추천]\n${d.shoe_recommendation}`)
-  if (d.wear_guide) sections.push(`[착용 가이드]\n${d.wear_guide}`)
-  if (d.precautions) sections.push(`[주의사항]\n${d.precautions}`)
+  if (d.recommendations) {
+    const labels: Record<string, string> = {
+      shoe_specification: 'Shoe Spec',
+      wear_guide: 'Wear Guide',
+      injury_prevention: 'Injury Prevention',
+    }
+    const lines = ['[Recommendations]']
+    for (const [key, label] of Object.entries(labels)) {
+      const item = d.recommendations[key]
+      if (item?.guide) {
+        lines.push(`${label}: ${item.guide}`)
+        if (item.data_insight) lines.push(item.data_insight)
+      }
+    }
+    sections.push(lines.join('\n'))
+  }
 
   return sections.join('\n\n')
 }

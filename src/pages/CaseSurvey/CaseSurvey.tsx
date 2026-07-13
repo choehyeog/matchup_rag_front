@@ -4,7 +4,7 @@ import { ArrowLeft, X, ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import { fittingApi } from '@/api/fitting'
 import { CASE_SURVEY, SPORT_OPTIONS } from '@/data/surveyQuestions'
 import { flattenCaseReport } from '@/utils/reportUtils'
-import type { ScanSession, ShoeMatch } from '@/types/api'
+import type { ScanSession, ShoeMatch, CaseReportJson } from '@/types/api'
 import styles from './CaseSurvey.module.css'
 
 /* shoe-match-detail을 병렬 호출해 실제 점수로 정렬한 신발 목록을 반환 */
@@ -91,6 +91,7 @@ export default function CaseSurvey() {
 
     let caseReportText = ''
     let caseReportSummary: string[] | undefined
+    let caseReportData: CaseReportJson | undefined
 
     try {
       /* 1. 케이스 리포트 생성 */
@@ -101,6 +102,7 @@ export default function CaseSurvey() {
         sport_type: sportType,
         case_survey_data: answers,
       })
+      caseReportData    = res.integrated_case_solution
       caseReportText    = flattenCaseReport(res.integrated_case_solution)
       caseReportSummary = res.summary_bullets
     } catch (e) {
@@ -130,6 +132,7 @@ export default function CaseSurvey() {
       cfdData:           coreSession.cfdData,      // ShoeDetail API 호출에 필요
       sportType,
       caseSurveyAnswers: answers,
+      caseReportData,
       caseReportText,
       caseReportSummary,
       matchedShoes: matchedShoes.map(({ image_url: _, ...rest }) => rest),

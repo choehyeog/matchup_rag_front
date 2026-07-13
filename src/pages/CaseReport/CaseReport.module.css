@@ -1,4 +1,4 @@
-/* CaseReport — Swiss design language */
+/* CaseReport — Swiss design language, card-based layout matching DeepReport */
 
 .screen {
   width: 100%;
@@ -54,10 +54,10 @@
   line-height: 1.45;
 }
 
-/* ── Summary card ── */
+/* ── Key Findings card ── */
 .summaryCard {
   background: #ffffff;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
@@ -65,10 +65,10 @@
 
 .summaryLabel {
   font-size: 11px;
-  font-weight: 600;
-  color: #94a3b8;
+  font-weight: 700;
+  color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.05em;
   margin-bottom: 12px;
 }
 
@@ -100,24 +100,82 @@
   margin-top: 7px;
 }
 
-/* ── Report card ── */
-.reportCard {
+/* ── Report body ── */
+.reportBody {
   flex: 1;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
   margin-bottom: 28px;
 }
 
+/* 섹션 헤더 바 */
+.sectionHeader {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #334155;
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin: 20px 0 10px;
+}
+
+/* 각 항목 카드 */
+.item {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 14px 12px;
+  margin-bottom: 10px;
+  background: #fafbfc;
+}
+
+.itemLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 7px;
+}
+
+.itemGuide {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1e293b;
+}
+
+.itemGuide strong { font-weight: 700; color: #0f172a; }
+
+.itemInsight {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #64748b;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+/* 주의사항 카드 (황색 계열) */
+.warningItem {
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 14px 14px 12px;
+  margin-bottom: 10px;
+  background: #fffbeb;
+}
+
+.warningItem .itemLabel { color: #92400e; }
+.warningItem .itemGuide { color: #1e293b; }
+
+/* 폴백: 평문 단락 */
 .paragraph {
   font-size: 15px;
   line-height: 1.65;
   color: #334155;
   white-space: pre-wrap;
+  margin-bottom: 14px;
 }
 
 /* ── CTA ── */
@@ -139,13 +197,8 @@
   letter-spacing: 0.01em;
 }
 
-.primaryBtn:disabled {
-  opacity: 0.3;
-}
-
-.primaryBtn:not(:disabled):active {
-  opacity: 0.82;
-}
+.primaryBtn:disabled { opacity: 0.3; }
+.primaryBtn:not(:disabled):active { opacity: 0.82; }
 
 .backBtn {
   background: none;

@@ -49,6 +49,7 @@ export interface ScanSession {
   deepReportData?: DeepReportJson
   sportType?: string
   caseSurveyAnswers?: Record<string, unknown>
+  caseReportData?: CaseReportJson
   caseReportText?: string
   matchedShoes?: ShoeMatch[]
   caseReportSummary?: string[]
@@ -98,9 +99,21 @@ export interface CaseReportRequest {
   force_regenerate?: boolean
 }
 
+export interface CaseReportItem {
+  guide?: string
+  data_insight?: string
+}
+
+export interface CaseReportJson {
+  activity_profile?: CaseReportItem
+  integrated_analysis?: Record<string, CaseReportItem>
+  recommendations?: Record<string, CaseReportItem>
+  error?: string
+}
+
 export interface CaseReportResponse {
   status: string
-  integrated_case_solution: string
+  integrated_case_solution: CaseReportJson
   matched_shoes?: ShoeMatch[]
   summary_bullets?: string[]
 }
