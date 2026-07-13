@@ -46,6 +46,7 @@ export interface ScanSession {
     card5_lifestyle: Record<string, unknown>
   }
   deepReportText?: string
+  deepReportData?: DeepReportJson
   sportType?: string
   caseSurveyAnswers?: Record<string, unknown>
   caseReportText?: string
@@ -71,9 +72,22 @@ export interface DeepReportRequest {
   force_regenerate?: boolean
 }
 
+export interface DeepReportItem {
+  guide?: string
+  data_insight?: string
+  illustration_key?: string
+}
+
+export interface DeepReportJson {
+  shoe_specification?: Record<string, DeepReportItem>
+  how_to_wear?: Record<string, DeepReportItem>
+  precautions?: { daily_caution?: string; shopping_tip?: string }
+  error?: string
+}
+
 export interface DeepReportResponse {
   status: string
-  deep_fitting_solution: string
+  deep_fitting_solution: DeepReportJson
 }
 
 export interface CaseReportRequest {

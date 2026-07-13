@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 118" fill="none">
+  <path d="M 26,14 Q 80,8 134,14 L 134,46 Q 80,40 26,46 Z" fill="#E2E8F0" stroke="#1E293B" stroke-width="1.6"/>
+  <ellipse cx="80" cy="30" rx="34" ry="18" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="24" y="46" width="56" height="34" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="80" y="46" width="56" height="34" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <line x1="80" y1="46" x2="80" y2="80" stroke="#94A3B8" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <rect x="18" y="80" width="124" height="16" rx="4" fill="#CBD5E1" stroke="#475569" stroke-width="1.4"/>
+  <text x="52"  y="67" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="system-ui,sans-serif">내측</text>
+  <text x="108" y="67" text-anchor="middle" font-size="8" fill="#1D4ED8" font-family="system-ui,sans-serif" font-weight="700">외측 지지</text>
+  <text x="80"  y="93" text-anchor="middle" font-size="7" fill="#475569" font-family="system-ui,sans-serif">아웃솔</text>
+  <text x="14"  y="110" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">← 내측</text>
+  <text x="114" y="110" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">외측 →</text>
+</svg>

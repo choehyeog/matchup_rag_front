@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 118" fill="none">
+  <line x1="8" y1="108" x2="152" y2="108" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="14"  y="116" font-size="6.5" fill="#94A3B8" font-family="system-ui,sans-serif">heel</text>
+  <text x="132" y="116" font-size="6.5" fill="#94A3B8" font-family="system-ui,sans-serif">toe</text>
+  <path d="M 16,98 Q 60,97 90,96 Q 115,96 144,98" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2"/>
+  <path d="M 16,98 Q 38,96 58,97 Q 76,76 90,62 Q 104,76 118,92 Q 132,98 144,98 L 144,106 L 16,106 Z" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.8"/>
+  <path d="M 76,76 Q 90,58 104,76" stroke="#1D4ED8" stroke-width="1.5"/>
+  <line x1="90" y1="63" x2="90" y2="90" stroke="#2563EB" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="90" y="55" text-anchor="middle" font-size="7" fill="#1D4ED8" font-family="system-ui,sans-serif" font-weight="700">아치 지지</text>
+  <text x="24" y="88" font-size="6.5" fill="#94A3B8" font-family="system-ui,sans-serif">편평족 선</text>
+</svg>

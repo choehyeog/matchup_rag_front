@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 130" fill="none">
+  <path d="M 55,8 Q 36,22 30,56 Q 27,80 34,104 Q 54,122 80,124 Q 106,122 126,104 Q 133,80 130,56 Q 124,22 105,8 Q 80,2 55,8 Z" fill="#F1F5F9" stroke="#1E293B" stroke-width="1.8"/>
+  <path d="M 64,10 L 64,120 Q 80,124 96,120 L 96,10 Q 80,6 64,10 Z" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+  <circle cx="58" cy="28" r="3.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="58" cy="44" r="3.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="58" cy="60" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="58" cy="76" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="58" cy="92" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="102" cy="28" r="3.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="102" cy="44" r="3.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="102" cy="60" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="102" cy="76" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="102" cy="92" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.2"/>
+  <line x1="58"  y1="92" x2="102" y2="92" stroke="#94A3B8" stroke-width="1.4"/>
+  <line x1="58"  y1="92" x2="102" y2="76" stroke="#94A3B8" stroke-width="1.4"/>
+  <line x1="102" y1="92" x2="58"  y2="76" stroke="#94A3B8" stroke-width="1.4"/>
+  <line x1="58"  y1="76" x2="102" y2="60" stroke="#94A3B8" stroke-width="1.4"/>
+  <line x1="102" y1="76" x2="58"  y2="60" stroke="#94A3B8" stroke-width="1.4"/>
+  <line x1="58"  y1="60" x2="58"  y2="44" stroke="#2563EB" stroke-width="1.6"/>
+  <line x1="102" y1="60" x2="102" y2="44" stroke="#2563EB" stroke-width="1.6"/>
+  <path d="M 58,44 Q 46,38 44,50 Q 44,60 58,60" stroke="#2563EB" stroke-width="1.6"/>
+  <path d="M 102,44 Q 114,38 116,50 Q 116,60 102,60" stroke="#2563EB" stroke-width="1.6"/>
+  <line x1="58"  y1="44" x2="102" y2="28" stroke="#2563EB" stroke-width="1.6"/>
+  <line x1="102" y1="44" x2="58"  y2="28" stroke="#2563EB" stroke-width="1.6"/>
+  <rect x="36" y="24" width="88" height="44" rx="4" fill="none" stroke="#2563EB" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.6"/>
+  <text x="80" y="19" text-anchor="middle" font-size="7" fill="#1D4ED8" font-family="system-ui,sans-serif" font-weight="700">힐 락 구간</text>
+</svg>

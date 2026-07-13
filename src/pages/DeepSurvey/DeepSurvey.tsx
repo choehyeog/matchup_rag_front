@@ -56,6 +56,7 @@ export default function DeepSurvey() {
       const updated: ScanSession = {
         ...session,
         surveyAnswers: cards as ScanSession['surveyAnswers'],
+        deepReportData: res.deep_fitting_solution,
         deepReportText: flattenDeepReport(res.deep_fitting_solution),
       }
       sessionStorage.setItem('scanSession', JSON.stringify(updated))

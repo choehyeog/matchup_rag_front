@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 118" fill="none">
+  <line x1="8" y1="108" x2="152" y2="108" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="14"  y="116" font-size="6.5" fill="#94A3B8" font-family="system-ui,sans-serif">heel</text>
+  <text x="132" y="116" font-size="6.5" fill="#94A3B8" font-family="system-ui,sans-serif">toe</text>
+  <path d="M 16,82 Q 50,80 90,81 Q 120,82 144,84 L 144,102 L 16,102 Z" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <rect x="14" y="102" width="132" height="7" rx="2" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1"/>
+  <path d="M 28,88 Q 34,85 40,88 Q 46,91 52,88 Q 58,85 64,88 Q 70,91 76,88 Q 82,85 88,88 Q 94,91 100,88 Q 106,85 112,88 Q 118,91 124,88 Q 130,85 136,88" stroke="#3B82F6" stroke-width="0.8" opacity="0.5"/>
+  <path d="M 28,94 Q 34,91 40,94 Q 46,97 52,94 Q 58,91 64,94 Q 70,97 76,94 Q 82,91 88,94 Q 94,97 100,94 Q 106,91 112,94 Q 118,97 124,94 Q 130,91 136,94" stroke="#3B82F6" stroke-width="0.8" opacity="0.5"/>
+  <line x1="148" y1="82" x2="148" y2="102" stroke="#2563EB" stroke-width="1.2"/>
+  <line x1="145" y1="82"  x2="151" y2="82"  stroke="#2563EB" stroke-width="1.2"/>
+  <line x1="145" y1="102" x2="151" y2="102" stroke="#2563EB" stroke-width="1.2"/>
+  <text x="80" y="73" text-anchor="middle" font-size="7" fill="#1D4ED8" font-family="system-ui,sans-serif" font-weight="700">균일 쿠셔닝</text>
+</svg>
