@@ -5,6 +5,40 @@ import type { ScanSession } from '@/types/api'
 import { parseMeasurements } from '@/types/api'
 import styles from './QuickReport.module.css'
 
+// <제목> 패턴 블록을 title + body 로 분리
+function parseBlock(para: string): { title: string; body: string } | null {
+  const nl = para.indexOf('\n')
+  if (nl === -1) return null
+  const firstLine = para.slice(0, nl).trim()
+  const body = para.slice(nl).trim()
+  if (firstLine.startsWith('<') && firstLine.endsWith('>')) {
+    return { title: firstLine.slice(1, -1), body }
+  }
+  return null
+}
+
+function parseReportText(text: string) {
+  const paras = text.split('\n\n').filter(Boolean)
+  const dimensions: Array<{ title: string; body: string }> = []
+  let caseBlock: { title: string; body: string } | null = null
+  let footer = ''
+
+  // paras[0] = 서비스 소개 (title 단락) — 건너뜀
+  for (let i = 1; i < paras.length; i++) {
+    const block = parseBlock(paras[i])
+    if (!block) {
+      footer = paras[i]   // <> 없는 단락 = footer
+      continue
+    }
+    if (block.title.toLowerCase().startsWith('case')) {
+      caseBlock = block
+    } else {
+      dimensions.push(block)
+    }
+  }
+  return { dimensions, caseBlock, footer }
+}
+
 export default function QuickReport() {
   const navigate = useNavigate()
   const [session, setSession] = useState<ScanSession | null>(null)
@@ -19,9 +53,9 @@ export default function QuickReport() {
   if (!session) return null
 
   const measurements = parseMeasurements(session.cfdData)
-  const paragraphs = session.quickReportText
-    ? session.quickReportText.split('\n\n').filter(Boolean)
-    : []
+  const reportText = session.quickReportText ?? ''
+  const { dimensions, caseBlock, footer } = parseReportText(reportText)
+  const hasStructure = dimensions.length > 0 || caseBlock !== null
 
   return (
     <div className={styles.screen}>
@@ -71,30 +105,36 @@ export default function QuickReport() {
         <h2 className={styles.sectionTitle}>Quick Fit Report.</h2>
 
         <div className={styles.reportBody}>
-          {session.quickReportData ? (
+          {hasStructure ? (
             <>
               {/* Section 1: Dimension 분석 */}
-              <div className={styles.sectionHeader}>Dimension 분석</div>
-              {session.quickReportData.dimensions.map(dim => (
-                <div key={dim.key} className={styles.item}>
-                  <div className={styles.itemLabel}>{dim.title}</div>
-                  <div className={styles.itemGuide}>{dim.text}</div>
-                </div>
-              ))}
+              {dimensions.length > 0 && (
+                <>
+                  <div className={styles.sectionHeader}>Dimension 분석</div>
+                  {dimensions.map(dim => (
+                    <div key={dim.title} className={styles.item}>
+                      <div className={styles.itemLabel}>{dim.title}</div>
+                      <div className={styles.itemGuide}>{dim.body}</div>
+                    </div>
+                  ))}
+                </>
+              )}
 
               {/* Section 2: Case */}
-              <div className={styles.sectionHeader}>{session.quickReportData.case_title}</div>
-              <div className={styles.caseItem}>
-                <div className={styles.itemGuide}>{session.quickReportData.case_text}</div>
-              </div>
-
-              {session.quickReportData.footer && (
-                <p className={styles.footerText}>{session.quickReportData.footer}</p>
+              {caseBlock && (
+                <>
+                  <div className={styles.sectionHeader}>{caseBlock.title}</div>
+                  <div className={styles.caseItem}>
+                    <div className={styles.itemGuide}>{caseBlock.body}</div>
+                  </div>
+                </>
               )}
+
+              {footer && <p className={styles.footerText}>{footer}</p>}
             </>
-          ) : paragraphs.length > 0 ? (
+          ) : reportText ? (
             <div className={styles.reportCard}>
-              {paragraphs.map((para, i) => (
+              {reportText.split('\n\n').filter(Boolean).map((para, i) => (
                 <p key={i} className={styles.reportParagraph}>{para}</p>
               ))}
             </div>
