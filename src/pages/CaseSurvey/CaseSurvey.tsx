@@ -4,7 +4,7 @@ import { ArrowLeft, X, ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import { fittingApi } from '@/api/fitting'
 import { CASE_SURVEY, SPORT_OPTIONS } from '@/data/surveyQuestions'
 import { flattenCaseReport } from '@/utils/reportUtils'
-import type { ScanSession, ShoeMatch, CaseReportJson } from '@/types/api'
+import type { ScanSession, ShoeMatch, CaseReportJson, WeightProfileItem } from '@/types/api'
 import styles from './CaseSurvey.module.css'
 
 /* shoe-match-detail을 병렬 호출해 실제 점수로 정렬한 신발 목록을 반환 */
@@ -92,6 +92,9 @@ export default function CaseSurvey() {
     let caseReportText = ''
     let caseReportSummary: string[] | undefined
     let caseReportData: CaseReportJson | undefined
+    let weightProfile: WeightProfileItem[] | undefined
+    let sizeUpRecommended: boolean | undefined
+    let sizeUpReason: string | undefined
 
     try {
       /* 1. 케이스 리포트 생성 */
@@ -103,9 +106,12 @@ export default function CaseSurvey() {
         case_survey_data: answers,
         force_regenerate: true,
       })
-      caseReportData    = res.integrated_case_solution
-      caseReportText    = flattenCaseReport(res.integrated_case_solution)
-      caseReportSummary = res.summary_bullets
+      caseReportData      = res.integrated_case_solution
+      caseReportText      = flattenCaseReport(res.integrated_case_solution)
+      caseReportSummary   = res.summary_bullets
+      weightProfile       = res.weight_profile
+      sizeUpRecommended   = res.size_up_recommended
+      sizeUpReason        = res.size_up_reason
     } catch (e) {
       console.warn('case-report API 실패:', e)
       caseReportText = '[리포트 생성 실패] 신발 적합도 결과를 확인하세요.'
@@ -136,6 +142,9 @@ export default function CaseSurvey() {
       caseReportData,
       caseReportText,
       caseReportSummary,
+      weightProfile,
+      sizeUpRecommended,
+      sizeUpReason,
       matchedShoes: matchedShoes.map(({ image_url: _, ...rest }) => rest),
     }
     sessionStorage.setItem('scanSession', JSON.stringify(lean))

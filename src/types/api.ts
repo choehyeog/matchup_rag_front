@@ -53,6 +53,9 @@ export interface ScanSession {
   caseReportText?: string
   matchedShoes?: ShoeMatch[]
   caseReportSummary?: string[]
+  weightProfile?: WeightProfileItem[]
+  sizeUpRecommended?: boolean
+  sizeUpReason?: string
 }
 
 // API 요청/응답
@@ -111,11 +114,24 @@ export interface CaseReportJson {
   error?: string
 }
 
+export interface WeightProfileItem {
+  dimension_id: string
+  label: string           // 한국어 dimension 명칭
+  weight: number          // 사용자 조건 반영 최종 가중치
+  base_weight: number     // 기본 가중치
+  required_spec: string   // 사용자에게 요구되는 스펙 (예: "9-12mm", "stability")
+  is_triggered: boolean   // 설문 조건으로 활성화된 항목 여부
+  priority_rank: number   // weight 기준 내림차순 순위 (1 = 최고)
+}
+
 export interface CaseReportResponse {
   status: string
   integrated_case_solution: CaseReportJson
   matched_shoes?: ShoeMatch[]
   summary_bullets?: string[]
+  weight_profile?: WeightProfileItem[]
+  size_up_recommended?: boolean
+  size_up_reason?: string
 }
 
 export interface ShoeMatchDetailRequest {
@@ -126,8 +142,10 @@ export interface ShoeMatchDetailRequest {
 }
 
 export interface BreakdownItem {
+  dimension_id?: string
   label: string
   score: number
+  weight?: number
   required: string
   product_value: string
 }
