@@ -38,6 +38,7 @@ export interface ScanSession {
   leftPhotoUrl?: string
   rightPhotoUrl?: string
   quickReportText?: string
+  quickReportData?: QuickReportData
   surveyAnswers?: {
     card1_physical: Record<string, unknown>
     card2_symptoms: Record<string, unknown>
@@ -59,9 +60,24 @@ export interface ScanSession {
 }
 
 // API 요청/응답
+export interface QuickReportDimension {
+  key: string
+  title: string
+  text: string
+}
+
+export interface QuickReportData {
+  dimensions: QuickReportDimension[]
+  case_type: 'small' | 'normal' | 'large'
+  case_title: string
+  case_text: string
+  footer: string
+}
+
 export interface QuickReportResponse {
   status: string
   quick_report_text: string
+  quick_report_data?: QuickReportData
 }
 
 export interface DeepReportRequest {

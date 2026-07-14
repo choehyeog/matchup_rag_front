@@ -85,6 +85,7 @@ export default function ScanInput() {
         leftPhotoUrl: leftPhotoUrl || undefined,
         rightPhotoUrl: rightPhotoUrl || undefined,
         quickReportText: res.quick_report_text,
+        quickReportData: res.quick_report_data,
       }
       sessionStorage.setItem('scanSession', JSON.stringify(session))
       navigate('/report/quick')

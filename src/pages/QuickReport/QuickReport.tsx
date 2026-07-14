@@ -69,13 +69,39 @@ export default function QuickReport() {
       {/* Quick Fit Report */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Quick Fit Report.</h2>
-        <div className={styles.reportCard}>
-          {paragraphs.length > 0 ? (
-            paragraphs.map((para, i) => (
-              <p key={i} className={styles.reportParagraph}>{para}</p>
-            ))
+
+        <div className={styles.reportBody}>
+          {session.quickReportData ? (
+            <>
+              {/* Section 1: Dimension 분석 */}
+              <div className={styles.sectionHeader}>Dimension 분석</div>
+              {session.quickReportData.dimensions.map(dim => (
+                <div key={dim.key} className={styles.item}>
+                  <div className={styles.itemLabel}>{dim.title}</div>
+                  <div className={styles.itemGuide}>{dim.text}</div>
+                </div>
+              ))}
+
+              {/* Section 2: Case */}
+              <div className={styles.sectionHeader}>{session.quickReportData.case_title}</div>
+              <div className={styles.caseItem}>
+                <div className={styles.itemGuide}>{session.quickReportData.case_text}</div>
+              </div>
+
+              {session.quickReportData.footer && (
+                <p className={styles.footerText}>{session.quickReportData.footer}</p>
+              )}
+            </>
+          ) : paragraphs.length > 0 ? (
+            <div className={styles.reportCard}>
+              {paragraphs.map((para, i) => (
+                <p key={i} className={styles.reportParagraph}>{para}</p>
+              ))}
+            </div>
           ) : (
-            <p className={styles.reportEmpty}>리포트를 불러오는 중입니다...</p>
+            <div className={styles.reportCard}>
+              <p className={styles.reportEmpty}>리포트를 불러오는 중입니다...</p>
+            </div>
           )}
         </div>
       </section>
